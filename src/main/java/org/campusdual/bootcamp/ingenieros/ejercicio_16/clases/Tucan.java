@@ -1,4 +1,4 @@
-package org.campusdual.bootcamp.ingenieros.ejercicio_14.clases;
+package org.campusdual.bootcamp.ingenieros.ejercicio_16.clases;
 
 public class Tucan extends AnimalSalvaje {
     public Tucan(Sexo sexo) {

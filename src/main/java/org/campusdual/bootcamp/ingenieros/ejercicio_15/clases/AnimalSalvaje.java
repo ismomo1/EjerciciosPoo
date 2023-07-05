@@ -1,8 +1,9 @@
-package org.campusdual.bootcamp.ingenieros.ejercicio_14.clases;
+package org.campusdual.bootcamp.ingenieros.ejercicio_15.clases;
 
 public class AnimalSalvaje extends Animal {
     public AnimalSalvaje(Sexo sexo) {
         super(sexo);
+        this.tipoLista = TipoLista.ANIMALESSALVAJES.name();
     }
     public AnimalSalvaje(String tipo)
     {

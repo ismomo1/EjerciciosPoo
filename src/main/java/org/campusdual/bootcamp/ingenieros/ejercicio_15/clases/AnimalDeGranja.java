@@ -1,10 +1,11 @@
-package org.campusdual.bootcamp.ingenieros.ejercicio_14.clases;
+package org.campusdual.bootcamp.ingenieros.ejercicio_15.clases;
 
 public class AnimalDeGranja extends Animal {
     protected String propietario;
 
     public AnimalDeGranja(Sexo sexo) {
         super(sexo);
+        this.tipoLista = TipoLista.ANIMALESDEGRANJA.name();
     }
     public AnimalDeGranja(String tipo)
     {

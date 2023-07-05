@@ -22,8 +22,8 @@ public abstract class Animal implements ISexual {
 
     protected boolean clone;
 
-    public static ArrayList<Animal> listaAnimales = new ArrayList<>();
-    public static boolean macho = true;
+    protected static ArrayList<Animal> listaAnimales = new ArrayList<>();
+    protected static boolean macho = true;
 
     public Animal(String tipo)
     {
@@ -40,8 +40,8 @@ public abstract class Animal implements ISexual {
         this.clone = false;
     }
 
-    public Animal() {
-
+    public Animal(Sexo sexo) {
+        this.sexo = sexo.name();
     }
     public Animal(Animal animal)
     {
@@ -74,17 +74,14 @@ public abstract class Animal implements ISexual {
         System.out.printf("Reino: %s\nMedio: %s\nTipo: %s\nRaza: %s\nSexo: %s\nSonido: %s\nDesplazamiento: %s\nClone: %b\n\n", this.reino, this.medio, this.tipo, this.raza, this.sexo, this.sonido, this.desplazamiento, this.clone);
     }
 
-    public static void AñadirAnimal(Animal animal)
+    public static void AñadirALista(Animal animal)
     {
-        if(macho) {
-            animal.setSexo(Sexo.MASCULINO);
-            macho = false;
-        }
-        else {
-            animal.setSexo(Sexo.FEMENINO);
-            macho = true;
-        }
         listaAnimales.add(animal);
+    }
+
+    public static void EliminarDeLista(int index)
+    {
+        listaAnimales.remove(index);
     }
 
     public static void MostrarLista()

@@ -1,4 +1,4 @@
-package org.campusdual.bootcamp.ingenieros.ejercicio_14.clases;
+package org.campusdual.bootcamp.ingenieros.ejercicio_17.clases;
 
 public interface ISexual {
     enum Sexo{

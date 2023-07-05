@@ -1,4 +1,4 @@
-package org.campusdual.bootcamp.ingenieros.ejercicio_14.clases;
+package org.campusdual.bootcamp.ingenieros.ejercicio_16.clases;
 
 public class Mascota extends Animal {
     protected String propietario, nombreMascota;
@@ -21,6 +21,7 @@ public class Mascota extends Animal {
 
     public Mascota(Sexo sexo) {
         super(sexo);
+        this.tipoLista = TipoLista.MASCOTAS.name();
     }
 
     public static Mascota Clone(Mascota a){
