@@ -230,7 +230,7 @@ public abstract class Animal implements ISexual {
         ArrayList<Animal> auxList = new ArrayList<>();
         for(Animal a : Animal.listaAnimales) {
             for (Animal b : Animal.listaAnimales) {
-                if (a != b && Objects.equals(a.tipo, b.tipo) && !Objects.equals(a.sexo, b.sexo) && !a.familia.contains(b) && a.generacionReproduccion < Animal.generacion && b.generacionReproduccion < Animal.generacion) {
+                if (a != b && Objects.equals(a.tipo, b.tipo) && !Objects.equals(a.sexo, b.sexo) && !a.familia.contains(b) && a.generacionReproduccion < Animal.generacion && b.generacionReproduccion < Animal.generacion && a.crias < 3 && b.crias < 3) {
                     //camada.clear();
                     //for (int i = 0; i <= (int)(Math.random() * 2); i++) {
                     switch (a.tipo) {
@@ -260,14 +260,16 @@ public abstract class Animal implements ISexual {
                     for (Animal ani : a.familia) {
                         if (ani != hijo) {
                             hijo.familia.add(ani);
+                            ani.familia.add(hijo);
                         }
                     }
                     for (Animal ani : b.familia) {
                         if (ani != hijo) {
                             hijo.familia.add(ani);
+                            ani.familia.add(hijo);
                         }
                     }
-                    hijo.MostrarAnimal();
+                    //hijo.MostrarAnimal();
                     auxList.add(hijo);
                     //}
                         /*for (Animal h : camada){
@@ -291,11 +293,11 @@ public abstract class Animal implements ISexual {
 
     public static void Crianza()
     {
-        int poblacion_actual = Animal.listaAnimales.size();
-        //while(Animal.hayReproduccion) {
-        for(int i = 0; i < 4; i++){
+        while(Animal.hayReproduccion) {
+        //for(int i = 0; i < 4; i++){
+            int poblacion_actual = Animal.listaAnimales.size();
             Animal.Reproduccion();
-            System.out.printf("\n%d\n", Animal.generacion);
+            System.out.printf("\nPoblación actual %d\nPoblación futura %d\nGeneración %d\n", poblacion_actual, Animal.listaAnimales.size(), Animal.generacion);
             if(Animal.listaAnimales.size() == poblacion_actual){
                 Animal.hayReproduccion = false;
             }
