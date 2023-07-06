@@ -352,7 +352,7 @@ public abstract class Animal implements ISexual {
     public static void Crianza()
     {
         //while(Animal.hayReproduccion) {
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < 8; i++){
             int poblacion_actual = Animal.listaAnimales.size();
             Animal.Reproduccion();
             System.out.printf("\nPoblación actual %d\nPoblación futura %d\nGeneración %d\n", poblacion_actual, Animal.listaAnimales.size(), Animal.generacion);
@@ -365,25 +365,24 @@ public abstract class Animal implements ISexual {
 
     public static void MostrarAntepasados(int id)
     {
-        ArrayList<Animal> antepasados = new ArrayList<>();
-        Animal auxPadre, auxMadre;
+        boolean existe = false;
         for (Animal animal : listaAnimales) {
             if (animal.id == id) {
                 //Mostrar antepasados
-                int cont = 0;
+                existe = true;
                 if (animal.padre != null)
                 {
-                    System.out.printf("Generación %d\tPadre: %d\tMadre: %d\n", cont, animal.padre.id, animal.madre.id);
-                    /*if (animal.padre.padre != null){
-                        auxPadre = animal.padre.padre
-                        antepasados.add(ani)
-                    }*/
+                    System.out.printf("Padre de %d: %d\tMadre de %d: %d\n", id, animal.padre.id, id, animal.madre.id);
+                    Animal.MostrarAntepasados(animal.padre.id);
+                    Animal.MostrarAntepasados(animal.madre.id);
                 }
                 else {
-                    System.out.println("Antepasados desconocidos.\n");
+                    System.out.printf("Antepasados de %d desconocidos.\n", id);
                 }
-                break;
             }
+        }
+        if(!existe){
+            System.out.printf("El animal con ID %d no existe.", id);
         }
     }
 
