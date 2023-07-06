@@ -365,6 +365,8 @@ public abstract class Animal implements ISexual {
 
     public static void MostrarAntepasados(int id)
     {
+        ArrayList<Animal> antepasados = new ArrayList<>();
+        Animal auxPadre, auxMadre;
         for (Animal animal : listaAnimales) {
             if (animal.id == id) {
                 //Mostrar antepasados
@@ -372,6 +374,13 @@ public abstract class Animal implements ISexual {
                 if (animal.padre != null)
                 {
                     System.out.printf("Generación %d\tPadre: %d\tMadre: %d\n", cont, animal.padre.id, animal.madre.id);
+                    /*if (animal.padre.padre != null){
+                        auxPadre = animal.padre.padre
+                        antepasados.add(ani)
+                    }*/
+                }
+                else {
+                    System.out.println("Antepasados desconocidos.\n");
                 }
                 break;
             }
