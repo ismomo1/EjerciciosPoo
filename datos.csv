@@ -1,0 +1,11 @@
+ID, Nombre, Propietario, Tipo, Raza, Sexo, Reino, Medio, Sonido, Desplazamiento, Lista, Clon, Gen. Reprod., Crías
+0,null,null,tucan,null,FEMENINO,AVE,AEREO,tucutucu,volar,ANIMALESSALVAJES,false,0,0
+1,null,null,vaca,null,FEMENINO,MAMIFERO,TERRESTRE,muuu,caminar,ANIMALESDEGRANJA,false,0,0
+2,null,null,gato,null,FEMENINO,MAMIFERO,TERRESTRE,miau,caminar,MASCOTAS,false,0,0
+3,null,null,pez payaso,null,MASCULINO,PEZ,ACUATICO,blup,nadar,ANIMALESSALVAJES,false,0,0
+4,null,null,oveja,null,FEMENINO,MAMIFERO,TERRESTRE,beee,caminar,ANIMALESDEGRANJA,false,0,0
+5,null,null,oveja,null,FEMENINO,MAMIFERO,TERRESTRE,beee,caminar,ANIMALESDEGRANJA,false,0,0
+6,null,null,pez payaso,null,FEMENINO,PEZ,ACUATICO,blup,nadar,ANIMALESSALVAJES,false,0,0
+7,null,null,gato,null,MASCULINO,MAMIFERO,TERRESTRE,miau,caminar,MASCOTAS,false,0,0
+8,null,null,perro,null,MASCULINO,MAMIFERO,TERRESTRE,guau,correr,MASCOTAS,false,0,0
+9,null,null,tucan,null,FEMENINO,AVE,AEREO,tucutucu,volar,ANIMALESSALVAJES,false,0,0

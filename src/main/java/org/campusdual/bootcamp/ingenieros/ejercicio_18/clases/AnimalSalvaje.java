@@ -1,6 +1,10 @@
 package org.campusdual.bootcamp.ingenieros.ejercicio_18.clases;
 
 public class AnimalSalvaje extends Animal {
+    public AnimalSalvaje(int id, String nombreMascota, String propietario, String tipo, String raza, String sexo, String reino, String medio, String sonido, String desplazamiento, String tipoLista, boolean clone, int generacionReproduccion, int crias) {
+        super(id, nombreMascota, propietario, tipo, raza, sexo, reino, medio, sonido, desplazamiento, tipoLista, clone, generacionReproduccion, crias);
+    }
+
     public AnimalSalvaje(Sexo sexo) {
         super(sexo);
         this.tipoLista = TipoLista.ANIMALESSALVAJES.name();

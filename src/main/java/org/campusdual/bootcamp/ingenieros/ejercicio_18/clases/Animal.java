@@ -1,7 +1,10 @@
 package org.campusdual.bootcamp.ingenieros.ejercicio_18.clases;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+
 
 public abstract class Animal implements ISexual {
 
@@ -26,13 +29,15 @@ public abstract class Animal implements ISexual {
         MASCOTAS
     }
 
-    protected String tipo, raza, reino, medio, sonido, desplazamiento, sexo, tipoLista;
+    protected String tipo, raza, reino, medio, sonido, desplazamiento, sexo, tipoLista, nombreMascota = null, propietario = null;
 
     protected boolean clone;
 
-    protected ArrayList<Animal> familia = new ArrayList<>();
+    protected ArrayList<Animal> hermanos = new ArrayList<>();
+    protected ArrayList<Animal> hijos = new ArrayList<>();
+    protected Animal padre = null, madre = null;
 
-    protected int generacionReproduccion, crias, id;
+    protected int generacionReproduccion, generation, crias, id;
 
     public static int generacion = 0, id_global = 0;
 
@@ -42,6 +47,24 @@ public abstract class Animal implements ISexual {
     protected static ArrayList<Animal> listaAnimalesDeGranja = new ArrayList<>();
     protected static ArrayList<Animal> listaAnimalesSalvajes = new ArrayList<>();
     protected static ArrayList<Animal> listaMascotas = new ArrayList<>();
+    //ID, Nombre, Propietario, Tipo, Raza, Sexo, Reino, Medio, Sonido, Desplazamiento, Lista, Clon, Gen. Reprod., Crías
+
+    public Animal(int id, String nombreMascota, String propietario, String tipo, String raza, String sexo, String reino, String medio, String sonido, String desplazamiento, String tipoLista, boolean clone, int generacionReproduccion, int crias) {
+        this.tipo = tipo;
+        this.raza = raza;
+        this.reino = reino;
+        this.medio = medio;
+        this.sonido = sonido;
+        this.desplazamiento = desplazamiento;
+        this.sexo = sexo;
+        this.tipoLista = tipoLista;
+        this.nombreMascota = nombreMascota;
+        this.propietario = propietario;
+        this.clone = clone;
+        this.generacionReproduccion = generacionReproduccion;
+        this.crias = crias;
+        this.id = id;
+    }
 
     public Animal(String tipo)
     {
@@ -63,6 +86,7 @@ public abstract class Animal implements ISexual {
         this.tipoLista = TipoLista.ANIMALES.name();
         this.generacionReproduccion = Animal.generacion;
         this.crias = 0;
+        this.generation = 0;
         this.AsignarID();
     }
     public Animal(Animal animal)
@@ -94,6 +118,15 @@ public abstract class Animal implements ISexual {
     public void MostrarAnimal()
     {
         System.out.printf("Reino: %s\nMedio: %s\nTipo: %s\nRaza: %s\nSexo: %s\nSonido: %s\nDesplazamiento: %s\nClone: %b\nID: %d\n\n", this.reino, this.medio, this.tipo, this.raza, this.sexo, this.sonido, this.desplazamiento, this.clone, this.id);
+    }
+
+    public Boolean EsFamilia(Animal animal)
+    {
+        if (padre == animal || madre == animal || hermanos.contains(animal)){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static void AñadirALista(Animal animal, TipoLista tipoLista)
@@ -128,6 +161,31 @@ public abstract class Animal implements ISexual {
                 break;
             case "MASCOTAS":
                 listaMascotas.remove(animal);
+                break;
+        }
+    }
+
+    public static void EliminarListas()
+    {
+        Animal.EliminarLista(TipoLista.ANIMALES);
+        Animal.EliminarLista(TipoLista.ANIMALESSALVAJES);
+        Animal.EliminarLista(TipoLista.ANIMALESDEGRANJA);
+        Animal.EliminarLista(TipoLista.MASCOTAS);
+    }
+    public static void EliminarLista(TipoLista tipoLista)
+    {
+        switch (tipoLista.name()){
+            case "ANIMALES":
+                listaAnimales.clear();
+                break;
+            case "ANIMALESSALVAJES":
+                listaAnimalesSalvajes.clear();
+                break;
+            case "ANIMALESDEGRANJA":
+                listaAnimalesDeGranja.clear();
+                break;
+            case "MASCOTAS":
+                listaMascotas.clear();
                 break;
         }
     }
@@ -230,9 +288,7 @@ public abstract class Animal implements ISexual {
         ArrayList<Animal> auxList = new ArrayList<>();
         for(Animal a : Animal.listaAnimales) {
             for (Animal b : Animal.listaAnimales) {
-                if (a != b && Objects.equals(a.tipo, b.tipo) && !Objects.equals(a.sexo, b.sexo) && !a.familia.contains(b) && a.generacionReproduccion < Animal.generacion && b.generacionReproduccion < Animal.generacion) {
-                    //camada.clear();
-                    //for (int i = 0; i <= (int)(Math.random() * 2); i++) {
+                if (a != b && Objects.equals(a.tipo, b.tipo) && !Objects.equals(a.sexo, b.sexo) && !a.EsFamilia(b) && a.generacionReproduccion < Animal.generacion && b.generacionReproduccion < Animal.generacion && a.crias < 3 && b.crias < 3) {
                     switch (a.tipo) {
                         case "gato":
                             hijo = new Gato(Animal.SexoAleatorio());
@@ -252,33 +308,35 @@ public abstract class Animal implements ISexual {
                         default:
                             hijo = new Vaca(Animal.SexoAleatorio());
                     }
-                    //camada.add(hijo);
-                    a.familia.add(hijo);
-                    b.familia.add(hijo);
-                    hijo.familia.add(a);
-                    hijo.familia.add(b);
-                    for (Animal ani : a.familia) {
-                        if (ani != hijo) {
-                            hijo.familia.add(ani);
-                            ani.familia.add(hijo);
+                    hijo.generation = Animal.generacion;
+                    if (Objects.equals(a.sexo, "MASCULINO")) {
+                        hijo.padre = a;
+                        hijo.madre = b;
+                    } else {
+                        hijo.padre = b;
+                        hijo.madre = a;
+                    }
+                    //System.out.printf("-----%d-----\nPadre: %d\nMadre: %d\n", hijo.id, hijo.padre.id, hijo.madre.id);
+                    for (Animal animal : a.hijos) {
+                        animal.hermanos.add(hijo);
+                        hijo.hermanos.add(animal);
+                        //System.out.printf("Hermano paterno: %d\n", animal.id);
+                    }
+                    for (Animal animal : b.hijos) {
+                        if (!animal.hermanos.contains(hijo)) {
+                            animal.hermanos.add(hijo);
+                        }
+                        if (!hijo.hermanos.contains(animal)) {
+                            hijo.hermanos.add(animal);
+                            //System.out.printf("Hermano materno: %d\n", animal.id);
                         }
                     }
-                    for (Animal ani : b.familia) {
-                        if (ani != hijo) {
-                            hijo.familia.add(ani);
-                            ani.familia.add(hijo);
-                        }
-                    }
+                    a.hijos.add(hijo);
+                    b.hijos.add(hijo);
+
                     //hijo.MostrarAnimal();
                     auxList.add(hijo);
                     //}
-                        /*for (Animal h : camada){
-                            for (Animal hermano : camada){
-                                if (hermano != h){
-                                    h.familia.add(hermano);
-                                }
-                            }
-                        }*/
                     a.crias++;
                     b.crias++;
                     a.generacionReproduccion = Animal.generacion;
@@ -303,6 +361,21 @@ public abstract class Animal implements ISexual {
             }
         }
 
+    }
+
+    public static void MostrarAntepasados(int id)
+    {
+        for (Animal animal : listaAnimales) {
+            if (animal.id == id) {
+                //Mostrar antepasados
+                int cont = 0;
+                if (animal.padre != null)
+                {
+                    System.out.printf("Generación %d\tPadre: %d\tMadre: %d\n", cont, animal.padre.id, animal.madre.id);
+                }
+                break;
+            }
+        }
     }
 
     protected void AsignarID()
@@ -357,5 +430,69 @@ public abstract class Animal implements ISexual {
 
     public void setDesplazamiento(String desplazamiento) {
         this.desplazamiento = desplazamiento;
+    }
+
+    public String getTipoLista() {
+        return tipoLista;
+    }
+
+    public boolean isClone() {
+        return clone;
+    }
+
+    public int getGeneracionReproduccion() {
+        return generacionReproduccion;
+    }
+
+    public int getCrias() {
+        return crias;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public static ArrayList<Animal> getListaAnimales() {
+        return listaAnimales;
+    }
+
+    public static ArrayList<Animal> getListaAnimalesDeGranja() {
+        return listaAnimalesDeGranja;
+    }
+
+    public static ArrayList<Animal> getListaAnimalesSalvajes() {
+        return listaAnimalesSalvajes;
+    }
+
+    public static ArrayList<Animal> getListaMascotas() {
+        return listaMascotas;
+    }
+
+    public String getNombreMascota() {
+        return nombreMascota;
+    }
+
+    public String getPropietario() {
+        return propietario;
+    }
+
+    public int getGeneration() {
+        return generation;
+    }
+
+    public void setGeneration(int generation) {
+        this.generation = generation;
+    }
+
+    public ArrayList<Animal> getHermanos() {
+        return hermanos;
+    }
+
+    public Animal getPadre() {
+        return padre;
+    }
+
+    public Animal getMadre() {
+        return madre;
     }
 }
