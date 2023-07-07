@@ -37,8 +37,15 @@ public class Animal {
         return animal;
     }
 
+    public String ToString()
+    {
+        String animal = "Reino: " + this.reino + "\nMedio: " + this.medio + "\nTipo: " + this.tipo + "\nRaza: " + this.raza + "\n\n";
+        return animal;
+    }
+
     public void MostrarAnimal()
     {
         System.out.printf("Reino: %s\nMedio: %s\nTipo: %s\nRaza: %s\n", this.reino, this.medio, this.tipo, this.raza);
+        System.out.println(this.ToString());
     }
 }

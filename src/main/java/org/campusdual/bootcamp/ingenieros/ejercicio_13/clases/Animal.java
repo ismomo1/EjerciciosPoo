@@ -94,9 +94,16 @@ public abstract class Animal implements ISexual {
         return sexo;
     }
 
+    public String ToString()
+    {
+        String animal = "Reino: " + this.reino + "\nMedio: " + this.medio + "\nTipo: " + this.tipo + "\nRaza: " + this.raza + "\nSexo: " + this.sexo + "\nSonido: " + this.sonido + "\nDesplazamiento: " + this.desplazamiento + "\nID: " + this.id + "\nNombre: " + this.nombreMascota + "\n\n";
+        return animal;
+    }
+
     public void MostrarAnimal()
     {
-        System.out.printf("Reino: %s\nMedio: %s\nTipo: %s\nRaza: %s\nSexo: %s\nSonido: %s\nDesplazamiento: %s\nID: %d\nNombre: %s\n\n", this.reino, this.medio, this.tipo, this.raza, this.sexo, this.sonido, this.desplazamiento, this.id, this.nombreMascota);
+        //System.out.printf("Reino: %s\nMedio: %s\nTipo: %s\nRaza: %s\nSexo: %s\nSonido: %s\nDesplazamiento: %s\nID: %d\nNombre: %s\n\n", this.reino, this.medio, this.tipo, this.raza, this.sexo, this.sonido, this.desplazamiento, this.id, this.nombreMascota);
+        System.out.println(this.ToString());
     }
 
     public Boolean EsFamilia(Animal animal)
