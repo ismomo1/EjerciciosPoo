@@ -1,8 +1,8 @@
 package org.campusdual.bootcamp.ingenieros.ejercicio_11;
 
-import org.campusdual.bootcamp.ingenieros.ejercicio_11.clases.Animal;
-import org.campusdual.bootcamp.ingenieros.ejercicio_11.clases.AnimalDeGranja;
-import org.campusdual.bootcamp.ingenieros.ejercicio_11.clases.Mascota;
+import org.campusdual.bootcamp.ingenieros.ejercicio_09.clases.Animal;
+import org.campusdual.bootcamp.ingenieros.ejercicio_09.clases.AnimalDeGranja;
+import org.campusdual.bootcamp.ingenieros.ejercicio_09.clases.Mascota;
 
 public class Main {
     public static void main(String[] args)

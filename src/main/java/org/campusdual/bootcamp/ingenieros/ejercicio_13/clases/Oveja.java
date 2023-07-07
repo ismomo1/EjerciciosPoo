@@ -2,11 +2,25 @@ package org.campusdual.bootcamp.ingenieros.ejercicio_13.clases;
 
 public class Oveja extends AnimalDeGranja {
 
-    public Oveja(String tipo, String raza, Reino reino, Medio medio, String propietario, String sonido, String desplazamiento) {
-        super(tipo, raza, reino, medio, propietario, sonido, desplazamiento);
+    public Oveja(Sexo sexo) {
+        super(sexo);
+        this.tipo = Tipo.OVEJA;
+        this.reino = Reino.MAMIFERO;
+        this.medio = Medio.TERRESTRE;
+        this.sonido = "beee";
+        this.desplazamiento = "caminar";
     }
 
-    public Oveja(AnimalDeGranja animalDeGranja) {
-        super(animalDeGranja);
+    public Oveja(String raza, String propietario) {
+        super(raza, propietario);
+        this.tipo = Tipo.OVEJA;
+        this.reino = Reino.MAMIFERO;
+        this.medio = Medio.TERRESTRE;
+        this.sonido = "beee";
+        this.desplazamiento = "caminar";
+    }
+
+    public Oveja(Oveja oveja) {
+        super(oveja);
     }
 }

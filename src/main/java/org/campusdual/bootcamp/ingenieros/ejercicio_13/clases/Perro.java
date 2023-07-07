@@ -2,11 +2,25 @@ package org.campusdual.bootcamp.ingenieros.ejercicio_13.clases;
 
 public class Perro extends Mascota {
 
-    public Perro(String tipo, String raza, Reino reino, Medio medio, String propietario, String nombreMascota, String sonido, String desplazamiento) {
-        super(tipo, raza, reino, medio, propietario, nombreMascota, sonido, desplazamiento);
+    public Perro(Sexo sexo) {
+        super(sexo);
+        this.tipo = Tipo.PERRO;
+        this.reino = Reino.MAMIFERO;
+        this.medio = Medio.TERRESTRE;
+        this.sonido = "guau";
+        this.desplazamiento = "correr";
     }
 
-    public Perro(Mascota mascota) {
-        super(mascota);
+    public Perro(String raza, String propietario, String nombreMascota) {
+        super(raza, propietario, nombreMascota);
+        this.tipo = Tipo.PERRO;
+        this.reino = Reino.MAMIFERO;
+        this.medio = Medio.TERRESTRE;
+        this.sonido = "guau";
+        this.desplazamiento = "correr";
+    }
+
+    public Perro(Perro perro) {
+        super(perro);
     }
 }

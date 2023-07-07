@@ -17,14 +17,11 @@ public class Animal {
 
     private String tipo, raza, reino, medio;
 
-    private boolean clone;
-
     public Animal(String tipo, String raza, Reino reino, Medio medio) {
         this.tipo = tipo;
         this.raza = raza;
         this.reino = reino.toString();
         this.medio = medio.toString();
-        this.clone = false;
     }
 
     public Animal(Animal animal)
@@ -33,16 +30,15 @@ public class Animal {
         this.raza = animal.raza;
         this.reino = animal.reino;
         this.medio = animal.medio;
-        this.clone = true;
     }
 
-    public Animal Clone(Animal a){
+    public static Animal Clone(Animal a){
         Animal animal = new Animal(a);
         return animal;
     }
 
     public void MostrarAnimal()
     {
-        System.out.printf("Reino: %s\nMedio: %s\nTipo: %s\nRaza: %s\nClone: %b", this.reino, this.medio, this.tipo, this.raza, this.clone);
+        System.out.printf("Reino: %s\nMedio: %s\nTipo: %s\nRaza: %s\n", this.reino, this.medio, this.tipo, this.raza);
     }
 }

@@ -7,5 +7,7 @@ public class Main {
     {
         Animal animal = new Animal("perro", "labrador", Animal.Reino.MAMIFERO, Animal.Medio.TERRESTRE);
         animal.MostrarAnimal();
+        Animal animal2 = animal.Clone(animal);
+        animal2.MostrarAnimal();
     }
 }

@@ -1,11 +1,10 @@
 package org.campusdual.bootcamp.ingenieros.ejercicio_12;
 
-import org.campusdual.bootcamp.ingenieros.ejercicio_12.clases.Animal;
-import org.campusdual.bootcamp.ingenieros.ejercicio_12.clases.AnimalDeGranja;
-import org.campusdual.bootcamp.ingenieros.ejercicio_12.clases.Mascota;
-import org.campusdual.bootcamp.ingenieros.ejercicio_12.clases.AnimalSalvaje;
-import org.campusdual.bootcamp.ingenieros.ejercicio_12.clases.Perro;
-import org.campusdual.bootcamp.ingenieros.ejercicio_12.clases.Tucan;
+import org.campusdual.bootcamp.ingenieros.ejercicio_09.clases.Animal;
+import org.campusdual.bootcamp.ingenieros.ejercicio_09.clases.AnimalDeGranja;
+import org.campusdual.bootcamp.ingenieros.ejercicio_09.clases.Mascota;
+import org.campusdual.bootcamp.ingenieros.ejercicio_09.clases.Perro;
+import org.campusdual.bootcamp.ingenieros.ejercicio_09.clases.Tucan;
 
 public class Main {
     public static void main(String[] args)

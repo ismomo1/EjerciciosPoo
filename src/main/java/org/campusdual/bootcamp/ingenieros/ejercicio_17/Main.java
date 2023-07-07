@@ -1,8 +1,6 @@
 package org.campusdual.bootcamp.ingenieros.ejercicio_17;
 
-import org.campusdual.bootcamp.ingenieros.ejercicio_17.clases.Animal;
-import org.campusdual.bootcamp.ingenieros.ejercicio_17.clases.Gato;
-import org.campusdual.bootcamp.ingenieros.ejercicio_17.clases.ISexual;
+import org.campusdual.bootcamp.ingenieros.ejercicio_13.clases.Animal;
 
 public class Main {
     public static void main(String[] args)
@@ -12,7 +10,7 @@ public class Main {
         //Animal.AñadirALista(new Gato(ISexual.Sexo.FEMENINO), Animal.TipoLista.ANIMALES);
         //Animal.MostrarLista(Animal.TipoLista.ANIMALES);
         System.out.println("------------------------------------------");
-        Animal.Crianza();
-        Animal.MostrarLista(Animal.TipoLista.ANIMALES);
+        Animal.Crianza(4);
+        //Animal.MostrarLista(Animal.TipoLista.ANIMALES);
     }
 }
