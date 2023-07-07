@@ -45,7 +45,7 @@ public class Animal {
 
     public void MostrarAnimal()
     {
-        System.out.printf("Reino: %s\nMedio: %s\nTipo: %s\nRaza: %s\n", this.reino, this.medio, this.tipo, this.raza);
+        //System.out.printf("Reino: %s\nMedio: %s\nTipo: %s\nRaza: %s\n", this.reino, this.medio, this.tipo, this.raza);
         System.out.println(this.ToString());
     }
 }
