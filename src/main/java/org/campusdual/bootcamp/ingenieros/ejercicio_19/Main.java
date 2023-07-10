@@ -12,5 +12,6 @@ public class Main {
         //Animal.MostrarLista(TipoLista.ANIMALES);
         Persistencia.GenerarCSV();
         Persistencia.GenerarCSV2();
+        Persistencia.GenerarJSON();
     }
 }

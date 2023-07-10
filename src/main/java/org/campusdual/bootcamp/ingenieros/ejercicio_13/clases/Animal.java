@@ -36,7 +36,7 @@ public abstract class Animal implements ISexual {
         this.tipoLista = tipoLista;
         this.nombreMascota = nombreMascota;
         this.propietario = propietario;
-        this.generation = generacionReproduccion;
+        this.generation = generacion;
         this.crias = crias;
         this.id = id;
     }
@@ -459,6 +459,10 @@ public abstract class Animal implements ISexual {
         return listaAnimales;
     }
 
+    public static void setListaAnimales(ArrayList<Animal> listaAnimales) {
+        Animal.listaAnimales = listaAnimales;
+    }
+
     public static ArrayList<Animal> getListaAnimalesDeGranja() {
         return listaAnimalesDeGranja;
     }
@@ -489,6 +493,18 @@ public abstract class Animal implements ISexual {
 
     public ArrayList<Animal> getHermanos() {
         return hermanos;
+    }
+
+    public void setHermanos(ArrayList<Animal> hermanos) {
+        this.hermanos = hermanos;
+    }
+
+    public ArrayList<Animal> getHijos() {
+        return hijos;
+    }
+
+    public void setHijos(ArrayList<Animal> hijos) {
+        this.hijos = hijos;
     }
 
     public Animal getPadre() {

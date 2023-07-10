@@ -9,7 +9,7 @@ public class Main {
     {
         Persistencia.LeerCSV();
         Animal.DistribuirListaAnimales();
-        //Animal.MostrarLista(TipoLista.MASCOTAS);
-        //Animal.MostrarLista(Animal.TipoLista.ANIMALES);
+        Animal.MostrarLista(TipoLista.MASCOTAS);
+        //Animal.MostrarLista(TipoLista.ANIMALESSALVAJES);
     }
 }

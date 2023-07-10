@@ -4,8 +4,11 @@ import org.campusdual.bootcamp.ingenieros.ejercicio_13.clases.*;
 import org.campusdual.bootcamp.ingenieros.ejercicio_13.clases.*;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
+import org.json.*;
 
 public class Persistencia {
     public static void GenerarCSV()
@@ -13,20 +16,10 @@ public class Persistencia {
         String archivoCSV = "datos.csv";
 
         try (FileWriter writer = new FileWriter(archivoCSV)) {
-            writer.write("ID, Nombre, Propietario, Tipo, Raza, Sexo, Reino, Medio, Sonido, Desplazamiento, Lista, Gen. Reprod., Crías\n");
+            writer.write("ID, Nombre, Propietario, Tipo, Raza, Sexo, Reino, Medio, Sonido, Desplazamiento, Lista, Gen. Reprod., Crías, Padre, Madre, Hijos, Hermanos\n");
             for (Animal animal : Animal.getListaAnimales()) {
                 StringBuilder filaCSV = new StringBuilder();
                 filaCSV.append(animal.getId()).append(",");
-                /*if (Objects.equals(animal.getTipoLista(), "MASCOTAS")) {
-                    filaCSV.append((animal.getNombreMascota())).append(",");
-                } else {
-                    filaCSV.append("null,");
-                }
-                if (Objects.equals(animal.getTipoLista(), "MASCOTAS") || Objects.equals(animal.getTipoLista(), "ANIMALESDEGRANJA")) {
-                    filaCSV.append((animal.getPropietario())).append(",");
-                } else {
-                    filaCSV.append("null,");
-                }*/
                 filaCSV.append((animal.getNombreMascota())).append(",");
                 filaCSV.append((animal.getPropietario())).append(",");
                 filaCSV.append(animal.getTipo()).append(",");
@@ -38,7 +31,11 @@ public class Persistencia {
                 filaCSV.append(animal.getDesplazamiento()).append(",");
                 filaCSV.append(animal.getTipoLista()).append(",");
                 filaCSV.append(animal.getGeneration()).append(",");
-                filaCSV.append(animal.getCrias()).append("\n");
+                filaCSV.append(animal.getCrias()).append(",");
+                filaCSV.append(animal.getPadre() != null ? animal.getPadre().getId() : null).append(",");
+                filaCSV.append(animal.getMadre() != null ? animal.getMadre().getId() : null).append(",");
+                filaCSV.append(!animal.getHijos().isEmpty() ? animal.getHijos() : null).append(",");
+                filaCSV.append(!animal.getHermanos().isEmpty() ? animal.getHermanos() : null).append("\n");
                 writer.write(filaCSV.toString());
             }
         } catch (IOException e) {
@@ -52,9 +49,9 @@ public class Persistencia {
         PrintWriter pw = null;
         try{
             pw = new PrintWriter(new FileWriter(file));
-            pw.println("ID, Nombre, Propietario, Tipo, Raza, Sexo, Reino, Medio, Sonido, Desplazamiento, Lista, Generación, Crías");
+            pw.println("ID, Nombre, Propietario, Tipo, Raza, Sexo, Reino, Medio, Sonido, Desplazamiento, Lista, Generación, Crías, Padre, Madre");
             for (Animal animal : Animal.getListaAnimales()) {
-                pw.printf("%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d\n", animal.getId(), animal.getNombreMascota(), animal.getPropietario(), animal.getTipo(), animal.getRaza(), animal.getSexo(), animal.getReino(), animal.getMedio(), animal.getSonido(), animal.getDesplazamiento(), animal.getTipoLista(), animal.getGeneration(), animal.getCrias());
+                pw.printf("%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d,%d,%d\n", animal.getId(), animal.getNombreMascota(), animal.getPropietario(), animal.getTipo(), animal.getRaza(), animal.getSexo(), animal.getReino(), animal.getMedio(), animal.getSonido(), animal.getDesplazamiento(), animal.getTipoLista(), animal.getGeneration(), animal.getCrias(), animal.getPadre() != null ? animal.getPadre().getId() : null, animal.getMadre() != null ? animal.getMadre().getId() : null);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,6 +140,73 @@ public class Persistencia {
             } catch (Exception e2) {
                 e2.printStackTrace();
             }
+        }
+    }
+
+    public static void GenerarJSON() {
+        try {
+            JSONArray jsonArray = new JSONArray();
+            for (Animal animal : Animal.getListaAnimales()) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("ID", animal.getId());
+                jsonObject.put("Nombre", animal.getNombreMascota() != null ? animal.getNombreMascota() : JSONObject.NULL);
+                jsonObject.put("Propietario", animal.getPropietario() != null ? animal.getPropietario() : JSONObject.NULL);
+                jsonObject.put("Tipo", animal.getTipo());
+                jsonObject.put("Raza", animal.getRaza() != null ? animal.getRaza() : JSONObject.NULL);
+                jsonObject.put("Sexo", animal.getSexo());
+                jsonObject.put("Reino", animal.getReino());
+                jsonObject.put("Medio", animal.getMedio());
+                jsonObject.put("Sonido", animal.getSonido());
+                jsonObject.put("Desplazamiento", animal.getDesplazamiento());
+                jsonObject.put("Lista", animal.getTipoLista());
+                jsonObject.put("Generacion", animal.getGeneration());
+                jsonObject.put("Crias", animal.getCrias());
+                jsonArray.put(jsonObject);
+            }
+            try (FileWriter writer = new FileWriter("datos.json")) {
+                writer.write(jsonArray.toString(2));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void LeerJSON()
+    {
+        try {
+            String contenidoJSON = new String(Files.readAllBytes(Paths.get("datos.json")));
+            JSONArray jsonArray = new JSONArray(contenidoJSON);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonAnimal = jsonArray.getJSONObject(i);
+                Integer ID = jsonAnimal.getInt("ID");
+                String nombre = jsonAnimal.isNull("Nombre") ? null : jsonAnimal.getString("Nombre");//jsonAnimal.getString("Nombre");
+                String propietario = jsonAnimal.isNull("Propietario") ? null : jsonAnimal.getString("Propietario");
+                Tipo tipo = CheckTipo(jsonAnimal.getString("Tipo"));
+                String raza = jsonAnimal.isNull("Raza") ? null : jsonAnimal.getString("Raza");
+                String sexo = jsonAnimal.getString("Sexo");
+                Reino reino = CheckReino(jsonAnimal.getString("Reino"));
+                Medio medio = CheckMedio(jsonAnimal.getString("Medio"));
+                String sonido = jsonAnimal.getString("Sonido");
+                String desplazamiento = jsonAnimal.getString("Desplazamiento");
+                String lista = jsonAnimal.getString("Lista");
+                Integer generacion = jsonAnimal.getInt("Generacion");
+                Integer crias = jsonAnimal.getInt("Crias");
+
+                if (Objects.equals(tipo.name(), "MASCOTAS")){
+                    Animal animal = new Mascota(ID,nombre,propietario,tipo,raza,sexo,reino,medio,sonido,desplazamiento,lista,generacion,crias);
+                    Animal.AñadirALista(animal, TipoLista.ANIMALES);
+                } else if (Objects.equals(tipo.name(), "ANIMALESDEGRANJA")){
+                    Animal animal = new AnimalDeGranja(ID,nombre,propietario,tipo,raza,sexo,reino,medio,sonido,desplazamiento,lista,generacion,crias);
+                    Animal.AñadirALista(animal, TipoLista.ANIMALES);
+                } else if (Objects.equals(tipo.name(), "ANIMALESSALVAJES")){
+                    Animal animal = new AnimalSalvaje(ID,nombre,propietario,tipo,raza,sexo,reino,medio,sonido,desplazamiento,lista,generacion,crias);
+                    Animal.AñadirALista(animal, TipoLista.ANIMALES);
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

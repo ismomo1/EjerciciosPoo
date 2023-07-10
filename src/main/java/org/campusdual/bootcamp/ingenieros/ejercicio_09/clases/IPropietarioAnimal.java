@@ -1,6 +1,6 @@
 package org.campusdual.bootcamp.ingenieros.ejercicio_09.clases;
 
-public interface IAnimal {
+public interface IPropietarioAnimal {
     public enum Reino {
         MAMIFERO,
         AVE,
